@@ -51,4 +51,18 @@ class AppValidator {
     }
     return null;
   }
+
+  /// method to validate date,with regex
+  static String? validateDate(String? date) {
+    if (date == null || date.isEmpty) {
+      return 'date_required'.tr();
+    }
+    final dateRegex = RegExp(
+      r'^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$',
+    );
+    if (!dateRegex.hasMatch(date)) {
+      return 'invalid_date_format'.tr();
+    }
+    return null;
+  }
 }

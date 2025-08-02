@@ -15,7 +15,7 @@ class AuthRepositoryImplementation extends BaseAuthRepository {
       print("Success");
       return Right(user);
     } catch (e) {
-      print("Error");
+      print("Error ============================> $e");
       return Left(e);
     }
   }

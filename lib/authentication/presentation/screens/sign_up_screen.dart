@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SignUpScreen extends StatefulWidget {
   static const screenRoute = '/signUp-Screen';
 
+  const SignUpScreen({super.key});
+
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
@@ -105,47 +107,81 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 BlocConsumer<SignUpCubit, SignUpState>(
                   listener: (context, state) {
                     // TODO: implement listener
-                  },
-                  builder: (context, state) {
-                    if (state is SignUpLoading) {
-                      return CircularProgressIndicator(color: Colors.black54);
-                    }
                     if (state is SignUpError) {
-                      AlertDialog(
-                        title: Text('error'.tr()),
-                        content: Text(state.message),
-                      );
-                    }
-                    if (state is SignUpSuccess) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        // margin: EdgeInsets.all(15),
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Color(0xffEA3F7E),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              context.read<SignUpCubit>().signUpWithFirebase(
-                                emailController.text,
-                                passwordController.text,
-                              );
-                            }
-                          },
-                          child: Text(
-                            'sign_in'.tr(),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            state.message,
                             style: TextStyle(
+                              color: Colors.red,
                               fontSize: 20,
-                              color: Colors.white,
                               fontWeight: FontWeight.bold,
+                              fontFamily: "IBM",
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       );
                     }
-                    return Container();
+                    if (state is SignUpSuccess) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'sign_up_success'.tr(),
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "IBM",
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                      Future.delayed(Duration(seconds: 2), () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          LoginScreen.screenRoute,
+                        );
+                      });
+                    }
+                  },
+                  builder: (context, state) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      // margin: EdgeInsets.all(15),
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Color(0xffEA3F7E),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            context.read<SignUpCubit>().signUpWithFirebase(
+                              emailController.text,
+                              passwordController.text,
+                            );
+                          // Navigator.of(context).pushAndRemoveUntil(
+                          //   MaterialPageRoute(
+                          //     builder: (context) => LoginScreen(),
+                          //   ),
+                          //   (route) => false,
+                          // );
+                          }
+                        },
+                        child: Text(
+                          'sign_in'.tr(),
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    );
                   },
                 ),
                 SizedBox(height: 20),

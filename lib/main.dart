@@ -1,12 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app/authentication/presentation/screens/login_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/authentication/presentation/screens/sign_up_screen.dart';
-import 'package:todo_app/authentication/presentation/screens/todo_screen.dart';
+import 'package:todo_app/home/presentation/controllers/get_todo_cubit/get_todo_cubit.dart';
+import 'package:todo_app/home/presentation/screens/detail_todo.dart';
+import 'package:todo_app/home/presentation/screens/home_screen.dart';
+import 'package:todo_app/home/presentation/screens/profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp();
 
   runApp(
     EasyLocalization(
@@ -33,9 +38,18 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       routes: {
-        '/': (context) => LoginScreen(),
+        '/': (context) => BlocProvider(
+          create: (context) => GetTodoCubit()..getTodo(),
+          child: HomeScreen(),
+        ),
         SignUpScreen.screenRoute: (context) => SignUpScreen(),
-        TodoScreen.screenRoute: (context) => TodoScreen(),
+        HomeScreen.screenRoute: (context) => BlocProvider(
+          create: (context) => GetTodoCubit()..getTodo(),
+          child: HomeScreen(),
+        ),
+        DetailTodo.screenRoute: (context) => DetailTodo(),
+        ProfileScreen.screenRoute: (context) => ProfileScreen(),
+        
       },
     );
   }

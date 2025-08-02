@@ -20,5 +20,11 @@
     "invalid_email": "صيغة البريد الإلكتروني غير صحيحة",
     "username_required": "اسم المستخدم مطلوب",
     "Warning":"تحذير!",
-    "error":"خطأ"
+    "error":"خطأ",
+    "sign_up_success":"تم إنشاء الحساب بنجاح",
+    "date_required": "التاريخ مطلوب",
+    "date_invalid": "صيغة التاريخ غير صحيحة",
+    "todo_title_required": "عنوان المهمة مطلوب",
+    "todo_description_required": "وصف المهمة مطلوب",
+    "invalid_date_format": "صيغة التاريخ غير صحيحة"
 }

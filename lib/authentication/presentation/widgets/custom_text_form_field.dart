@@ -19,7 +19,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool? secureText;
   final String? Function(String?) validator;
 
-  CustomTextFormField({
+  const CustomTextFormField({super.key, 
     this.label,
     this.prefixIcon,
     this.suffixIcon,

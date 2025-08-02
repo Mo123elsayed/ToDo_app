@@ -20,5 +20,11 @@
     "invalid_email": "Invalid email format",
     "username_required": "Username is required",
     "Warning": "Warning!",
-    "error":"Error"
+    "error":"Error",
+    "sign_up_success": "Account created successfully!",
+    "date_required": "Date is required",
+    "date_invalid": "Invalid date format",
+    "todo_title_required": "Todo title is required",
+    "todo_description_required": "Todo description is required",
+    "invalid_date_format": "Invalid date format"
 }

@@ -4,10 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/authentication/presentation/controllers/login_cubit/login_cubit.dart';
 import 'package:todo_app/authentication/presentation/screens/sign_up_screen.dart';
-import 'package:todo_app/authentication/presentation/screens/todo_screen.dart';
 import 'package:todo_app/authentication/presentation/widgets/custom_text_form_field.dart';
 import 'package:todo_app/authentication/presentation/widgets/logo.dart';
-import 'dart:ui';
 
 import 'package:todo_app/core/validator/app_validator.dart';
 
@@ -97,6 +95,45 @@ class _LoginScreenState extends State<LoginScreen> {
                       BlocConsumer<LoginCubit, LoginState>(
                         listener: (context, state) {
                           // TODO: implement listener
+                          if (state is LoginFailure) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  state.message,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "IBM",
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            );
+                          }
+                          if (state is LoginSuccess) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'sign_up_success'.tr(),
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "IBM",
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                            Future.delayed(Duration(seconds: 2), () {
+                              Navigator.pushReplacementNamed(
+                                context,
+                                LoginScreen.screenRoute,
+                              );
+                            });
+                          }
                         },
                         builder: (context, state) {
                           return Container(
@@ -114,17 +151,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     emailController.text,
                                     passwordController.text,
                                   );
-                                  // if (formKey.currentState!.validate()) {
-                                  //   Navigator.pushReplacementNamed(
-                                  //     context,
-                                  // TodoScreen.screenRoute,
-                                  //   );
-                                  // }
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginScreen(),
+                                    ),
+                                    (route) => false,
+                                  );
                                 }
-                                Navigator.pushReplacementNamed(
-                                  context,
-                                  TodoScreen.screenRoute,
-                                );
                               },
                               child: Text(
                                 'sign_in'.tr(),

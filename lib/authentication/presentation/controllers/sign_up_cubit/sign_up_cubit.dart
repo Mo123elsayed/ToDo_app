@@ -1,7 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:dart_either/dart_either.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:todo_app/authentication/data/repositories/auth_repository_implementation.dart';
 import 'package:todo_app/authentication/domain/repositories/base_auth_repository.dart';
@@ -15,10 +12,11 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   Future<void> signUpWithFirebase(String email, String password) async {
     emit(SignUpLoading());
+    
     var user = await base.signUpWithFirebase(email, password);
     user.fold(
       ifLeft: (error) {
-        emit(SignUpError(message: error));
+        emit(SignUpError(message: error.toString()));
       },
       ifRight: (success)=> emit(SignUpSuccess()),
     );
