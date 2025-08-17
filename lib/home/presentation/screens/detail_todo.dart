@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:todo_app/core/theme/app_text.dart';
 import 'package:todo_app/home/presentation/screens/edit_todo_screen.dart';
 
@@ -18,7 +17,7 @@ class _DetailTodoState extends State<DetailTodo> {
   Widget build(BuildContext context) {
     final todo =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    print("=====================================> date ${todo['date']}");
+    print("=====================================> DocID = ${todo['date']}");
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -60,17 +59,8 @@ class _DetailTodoState extends State<DetailTodo> {
             Expanded(
               child: Text('${todo['description']}', style: AppText.body),
             ),
-            Center(
-              child: Text(
-                todo['date'] != null && todo['date'].toString().isNotEmpty
-                    ? DateFormat(
-                        'd MMMM, yyyy',
-                      ).format(DateTime.parse(todo['date'].toString()))
-                    : "No deadline",
-                style: AppText.subtitle,
-              ),
-            ),
-            const SizedBox(height: 10),
+            Center(child: Text('${todo['date']}', style: AppText.subtitle)),
+            SizedBox(height: 10),
           ],
         ),
       ),

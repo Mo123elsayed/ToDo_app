@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_either/dart_either.dart';
+import 'package:todo_app/home/data/models/todo_model.dart';
 import 'package:todo_app/home/domain/repositories/base_home_repository.dart';
 
 class HomeRepositoryImplementation extends BaseHomeRepository {
+  var instance = FirebaseFirestore.instance;
+
   /// Implementation of adding a todo item, to the todo-list collection
   @override
   /// Adds a new todo item to the todo-list collection in Firestore.
@@ -16,24 +19,21 @@ class HomeRepositoryImplementation extends BaseHomeRepository {
   Future<Either> addTodo(
     String title,
     String description,
-    Timestamp date,
+    DateTime date,
     // DateTime createdAt,
   ) async {
-    // Implementation of adding a todo item
-    var instance = FirebaseFirestore.instance;
-
     // TODO: Replace with actual implementation
     try {
       var collection = instance.collection('ToDo-list');
       var doc = await collection.add({
         'title': title,
         'description': description,
-        'date': date,
+        'date': Timestamp.fromDate(date),
         'createdAt': Timestamp.now(),
       });
-      print("====================> $date");
       var docId = doc.id;
-      /// 
+
+      ///
       collection.doc(docId).update({'id': docId});
       return Right(" $doc added successfully");
     } catch (e) {
@@ -55,7 +55,6 @@ class HomeRepositoryImplementation extends BaseHomeRepository {
   ///   A stream of `Either` objects, where the right side contains a list of
   ///   todo maps on success, and the left side contains an error message string
   ///   on failure.
-
   /// Retrieves a stream of todo items from the Firestore 'todo-list' collection.
   ///
   /// This function returns a stream of todo items, where each item is represented
@@ -70,30 +69,22 @@ class HomeRepositoryImplementation extends BaseHomeRepository {
   Stream<Either> getTodo() async* {
     // TODO: implement getTodo
     /// call an instance of FirebaseFirestore, and get a reference to the todo-list collection
-    var instance = FirebaseFirestore.instance;
 
-      /// use the instance to get the collection, and then add a document
-      var collection = instance.collection('todo-list');
+    /// use the instance to get the collection, and then add a document
+    var collection = instance.collection('ToDo-list');
 
-      /// get the document with the title, description, and date from the collection
-      yield* collection.snapshots().map((snap) {
-        try{
-          var todos = snap.docs.map((docs) {
-          return {
-            'id': docs['id'],
-            'title': docs['title'],
-            'description': docs['description'],
-            'date': docs['date'],
-            'createdAt': docs['createdAt'],
-            'updatedAt': docs['updatedAt'],
-          };
-          }).toList();
-          return Right(todos);
-        }catch(e){
-          return Left(e.toString());
-        }
-      });
-    
+    /// get the document with the title, description, and date from the collection
+    yield* collection.snapshots().map((snap) {
+      try {
+        var todos = snap.docs
+            .map((doc) => TodoModel.fromSnapshot(doc))
+            .toList();
+
+        return Right(todos);
+      } catch (e) {
+        return Left(e.toString());
+      }
+    });
   }
 
   /// update a todo item, from the todo-list collection
@@ -105,9 +96,8 @@ class HomeRepositoryImplementation extends BaseHomeRepository {
     DateTime date,
   ) async {
     // TODO: implement updateTodo
-    var instance = FirebaseFirestore.instance;
     try {
-      var collection = instance.collection('todo-list');
+      var collection = instance.collection('ToDo-list');
       var doc = collection.doc(id);
       await doc.update({
         'title': title,
@@ -122,6 +112,19 @@ class HomeRepositoryImplementation extends BaseHomeRepository {
       if (e is TypeError) {
         print('${e.stackTrace}');
       }
+      return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<Either> deleteTodo(String id) async {
+    // TODO: implement deleteTodo
+    try {
+      var collection = instance.collection('ToDo-list');
+      var doc = collection.doc(id);
+      await doc.delete();
+      return Right("Deleted successfully");
+    } catch (e) {
       return Left(e.toString());
     }
   }

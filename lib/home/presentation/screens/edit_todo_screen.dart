@@ -8,7 +8,6 @@ import 'package:todo_app/home/presentation/widgets/custom_text_form_field.dart';
 
 class EditTodoScreen extends StatefulWidget {
   final Map<String, dynamic> todo;
-
   const EditTodoScreen({super.key, required this.todo});
   @override
   State<EditTodoScreen> createState() => _EditTodoScreenState();
@@ -22,6 +21,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
   @override
   void initState() {
     super.initState();
+    widget.todo['id'];
     titleController.text = widget.todo['title'];
     descriptionController.text = widget.todo['description'];
     dateController.text = widget.todo['date'];
@@ -40,7 +40,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
   /// navigates back to the previous screen and shows a success message. If
   /// the update fails, it shows an error message.
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
     return BlocProvider(
       create: (context) => EditTodoCubit(),
       child: BlocConsumer<EditTodoCubit, EditTodoState>(
@@ -73,7 +73,6 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
               ),
             );
             final updatedTodo = {
-              'id': widget.todo['id'],
               'title': titleController.text,
               'description': descriptionController.text,
               'date': dateController.text,
@@ -85,7 +84,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
         builder: (context, state) {
           return SingleChildScrollView(
             child: Container(
-              height: screenSize.height * 0.75,
+              height: screenSize.height,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               decoration: BoxDecoration(
                 color: AppColors.lightPink,
@@ -127,7 +126,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                       onPressed: () {
                         showDatePicker(
                           context: context,
-                          initialDate:DateTime.now(),
+                          initialDate: DateTime.now(),
                           firstDate: DateTime.now(),
                           lastDate: DateTime(2100),
                         ).then((value) {
@@ -139,7 +138,9 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                             });
                           }
                         });
-                        print(dateController.text);
+                        print(
+                          "===================> dateController.text = ${dateController.text}",
+                        );
                       },
                       icon: Icon(Icons.calendar_today, color: AppColors.white),
                     ),

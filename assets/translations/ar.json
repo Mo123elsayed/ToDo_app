@@ -26,5 +26,13 @@
     "date_invalid": "صيغة التاريخ غير صحيحة",
     "todo_title_required": "عنوان المهمة مطلوب",
     "todo_description_required": "وصف المهمة مطلوب",
-    "invalid_date_format": "صيغة التاريخ غير صحيحة"
+    "invalid_date_format": "صيغة التاريخ غير صحيحة",
+    "No_Listed_Todo_Add_One": "لا يوجد مهام مقدمة، قم باضافة مهمة",
+    "Failed_to_delete_todo": "فشل في حذف المهمة",
+    "Todo_Deleted_Successfully": "تم حذف المهمة بنجاح",
+    "Todo_Updated_Successfully": "تم تحديث المهمة بنجاح",
+    "Are_you_sure_you_want_to_delete_this_todo?": "هل انت متاكد من حذف هذه المهمة؟",
+    "No_ToDo_yet_please_add_some!": "لا توجد مهام حتى الآن، يرجى إضافة بعض المهام!",
+    "Failed_to_get_todo": "فشل في جلب المهمة",
+    "No_Internet_Connection,please_try_again_later!": "لا يوجد اتصال بالإنترنت، يرجى المحاولة مرة أخرى لاحقًا!"
 }

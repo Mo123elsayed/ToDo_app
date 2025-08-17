@@ -5,12 +5,13 @@ sealed class GetTodoState {}
 
 final class GetTodoInitial extends GetTodoState {}
 final class GetTodoLoading extends GetTodoState {}
+final class GetTodoEmpty extends GetTodoState {}
 final class GetTodoFailure extends GetTodoState {
   final String errorMessage;
   GetTodoFailure(this.errorMessage);
 }
 final class GetTodoSuccess extends GetTodoState {
-  final List todos;
+  final List<TodoModel> todos;
   GetTodoSuccess(this.todos);
 }
 
