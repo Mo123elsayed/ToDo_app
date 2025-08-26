@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class TodoModel {
   final String id;
@@ -6,6 +7,7 @@ class TodoModel {
   final String description;
   final DateTime date;
   final DateTime createdAt;
+  final Color color;
 
   TodoModel({
     required this.id,
@@ -13,6 +15,7 @@ class TodoModel {
     required this.description,
     required this.date,
     required this.createdAt,
+    required this.color,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +25,7 @@ class TodoModel {
       'description': description,
       'date': Timestamp.fromDate(date),
       'createdAt': Timestamp.fromDate(createdAt),
+      'color': color.toARGB32(), // Store color as an integer value
     };
   }
 
@@ -32,6 +36,7 @@ class TodoModel {
       description: map['description'] ?? '',
       date: (map['date'] as Timestamp).toDate(),
       createdAt: (map['createdAt'] as Timestamp).toDate(),
+      color: Color(map['color']),
     );
   }
 }

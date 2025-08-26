@@ -32,7 +32,9 @@
     "Todo_Deleted_Successfully": "تم حذف المهمة بنجاح",
     "Todo_Updated_Successfully": "تم تحديث المهمة بنجاح",
     "Are_you_sure_you_want_to_delete_this_todo?": "هل انت متاكد من حذف هذه المهمة؟",
-    "No_ToDo_yet_please_add_some!": "لا توجد مهام حتى الآن، يرجى إضافة بعض المهام!",
+    "No_Todo_yet_please_add_some": "لا توجد مهام حتى الآن، يرجى إضافة بعض المهام",
     "Failed_to_get_todo": "فشل في جلب المهمة",
-    "No_Internet_Connection,please_try_again_later!": "لا يوجد اتصال بالإنترنت، يرجى المحاولة مرة أخرى لاحقًا!"
+    "No_Internet_Connection,please_try_again_later!": "لا يوجد اتصال بالإنترنت، يرجى المحاولة مرة أخرى لاحقًا!",
+    "Change_Language": "EN",
+    "logout": "تسجيل الخروج"
 }

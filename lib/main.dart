@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/authentication/presentation/screens/sign_up_screen.dart';
+import 'package:todo_app/home/presentation/controllers/delete_todo_cubit/delete_todo_cubit.dart';
 import 'package:todo_app/home/presentation/controllers/get_todo_cubit/get_todo_cubit.dart';
 import 'package:todo_app/home/presentation/screens/detail_todo.dart';
 import 'package:todo_app/home/presentation/screens/home_screen.dart';
@@ -43,13 +44,12 @@ class MyApp extends StatelessWidget {
           child: HomeScreen(),
         ),
         SignUpScreen.screenRoute: (context) => SignUpScreen(),
-        HomeScreen.screenRoute: (context) => BlocProvider(
-          create: (context) => GetTodoCubit()..getTodo(),
-          child: HomeScreen(),
+        HomeScreen.screenRoute: (context) => HomeScreen(),
+        DetailTodo.screenRoute: (context) => BlocProvider(
+          create: (context) => DeleteTodoCubit(),
+          child: DetailTodo(),
         ),
-        DetailTodo.screenRoute: (context) => DetailTodo(),
         ProfileScreen.screenRoute: (context) => ProfileScreen(),
-        
       },
     );
   }

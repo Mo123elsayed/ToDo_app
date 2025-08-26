@@ -12,9 +12,9 @@ class AppText {
 
   static TextStyle get subtitle => TextStyle(
     fontSize: 18,
-    fontWeight: FontWeight.w500,
     color: Colors.black,
     fontFamily: fontFamily,
+    fontWeight: FontWeight.w600,
   );
 
   static TextStyle get body => TextStyle(

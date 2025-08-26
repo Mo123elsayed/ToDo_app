@@ -32,7 +32,9 @@
     "Todo_Deleted_Successfully": "Todo deleted successfully",
     "Todo_Updated_Successfully": "Todo updated successfully",
     "Are_you_sure_you_want_to_delete_this_todo?": "Are you sure you want to delete this todo?",
-    "No_ToDo_yet_please_add_some!": "No todo yet, please add some!",
+    "No_Todo_yet_please_add_some": "No ToDo yet, please add some!",
     "Failed_to_get_todo": "Failed to get todo",
-    "No_Internet_Connection,please_try_again_later!": "No internet connection, please try again later!"
+    "No_Internet_Connection,please_try_again_later!": "No internet connection, please try again later!",
+    "Change_Language": "عربي (EG)",
+    "logout": "Logout"
 }

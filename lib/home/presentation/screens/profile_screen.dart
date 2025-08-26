@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/core/theme/app_color.dart';
@@ -21,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 18.0),
+        padding: const EdgeInsets.only(left: 15.0, right: 15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -30,12 +31,20 @@ class ProfileScreen extends StatelessWidget {
             personalDataRow(title: 'Name', nameValue: 'Muhammed ElSayed'),
             personalDataRow(title: 'Change Email'),
             personalDataRow(title: 'Change Password'),
-            personalDataRow(title: 'Change Language'),
+            SwitchListTile(
+              contentPadding: EdgeInsets.symmetric(horizontal: 0),
+              title: Text('Change_Language'.tr()),
+              value: context.locale.languageCode == 'ar',
+              onChanged: (value) {
+                Locale newLocale = value ? Locale('ar') : Locale('en');
+                context.setLocale(newLocale);
+              },
+            ),
             SizedBox(height: screenSize.height * 0.04),
             GestureDetector(
               onTap: () {},
               child: Text(
-                'Logout',
+                'logout'.tr(),
                 style: TextStyle(
                   fontSize: 20,
                   fontFamily: AppText.fontFamily,

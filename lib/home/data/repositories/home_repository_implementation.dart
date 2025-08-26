@@ -1,5 +1,7 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_either/dart_either.dart';
+import 'package:flutter/material.dart';
 import 'package:todo_app/home/data/models/todo_model.dart';
 import 'package:todo_app/home/domain/repositories/base_home_repository.dart';
 
@@ -20,7 +22,7 @@ class HomeRepositoryImplementation extends BaseHomeRepository {
     String title,
     String description,
     DateTime date,
-    // DateTime createdAt,
+    Color color,
   ) async {
     // TODO: Replace with actual implementation
     try {
@@ -30,6 +32,7 @@ class HomeRepositoryImplementation extends BaseHomeRepository {
         'description': description,
         'date': Timestamp.fromDate(date),
         'createdAt': Timestamp.now(),
+        'color': color.toARGB32(),
       });
       var docId = doc.id;
 
