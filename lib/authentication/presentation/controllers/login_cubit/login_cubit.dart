@@ -14,8 +14,12 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
     var user = await base.logInWithFirebase(email, password);
     user.fold(
-      ifLeft: (value) => emit(LoginFailure(value)),
-      ifRight: (value) => emit(LoginSuccess()),
+      ifLeft: (value){
+        emit(LoginFailure(value));
+      },
+      ifRight: (value) async{
+        emit(LoginSuccess());
+      },
     );
   }
 }

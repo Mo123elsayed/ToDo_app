@@ -13,3 +13,4 @@ final class LoginFailure extends LoginState {
 }
 
 final class LoginSuccess extends LoginState {}
+

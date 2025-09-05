@@ -10,15 +10,25 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   final BaseAuthRepository base = AuthRepositoryImplementation();
 
-  Future<void> signUpWithFirebase(String email, String password) async {
+  Future<void> signUpWithFirebase(
+    String email,
+    String password,
+    String firstName,
+    String lastName,
+  ) async {
     emit(SignUpLoading());
-    
-    var user = await base.signUpWithFirebase(email, password);
+
+    var user = await base.signUpWithFirebase(
+      email,
+      password,
+      firstName,
+      lastName,
+    );
     user.fold(
       ifLeft: (error) {
         emit(SignUpError(message: error.toString()));
       },
-      ifRight: (success)=> emit(SignUpSuccess()),
+      ifRight: (success) => emit(SignUpSuccess()),
     );
   }
 }

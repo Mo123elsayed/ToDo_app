@@ -18,7 +18,8 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
@@ -47,166 +48,198 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                Logo(),
-                SizedBox(height: 40),
-                CustomTextFormField(
-                  validator: (p0) => AppValidator.validateEmail(p0),
-                  label: 'email'.tr(),
-                  inputType: TextInputType.emailAddress,
-                  controller: emailController,
-                  prefixIcon: Icon(Icons.email_outlined),
-                  secureText: false,
-                ),
-                SizedBox(height: 20),
-                CustomTextFormField(
-                  validator: (p0) => AppValidator.validateName(p0),
-                  label: 'full_name'.tr(),
-                  inputType: TextInputType.name,
-                  controller: nameController,
-                  prefixIcon: Icon(Icons.person_2_outlined),
-                  secureText: false,
-                ),
-                SizedBox(height: 20),
-                CustomTextFormField(
-                  validator: (p0) => AppValidator.validatePassword(p0!),
-                  label: 'password'.tr(),
-                  prefixIcon: Icon(Icons.lock_outline_rounded),
-                  suffixIcon: IconButton(
-                    onPressed: () => setState(() => isVisible = !isVisible),
-                    icon: Icon(
-                      isVisible ? Icons.visibility : Icons.visibility_off,
+        body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  Logo(),
+                  SizedBox(height: 40),
+                  CustomTextFormField(
+                    validator: (p0) => AppValidator.validateEmail(p0),
+                    label: 'email'.tr(),
+                    inputType: TextInputType.emailAddress,
+                    controller: emailController,
+                    prefixIcon: Icon(Icons.email_outlined),
+                    secureText: false,
+                    textInputAction: TextInputAction.next,
+                  ),
+                  SizedBox(height: 20),
+                  CustomTextFormField(
+                    validator: (p0) => AppValidator.validateName(p0),
+                    label: 'first_name'.tr(),
+                    inputType: TextInputType.name,
+                    controller: firstNameController,
+                    prefixIcon: Icon(Icons.person_2_outlined),
+                    secureText: false,
+                    textInputAction: TextInputAction.next,
+                  ),
+                  SizedBox(height: 20),
+                  CustomTextFormField(
+                    validator: (p0) => AppValidator.validateName(p0),
+                    label: 'last_name'.tr(),
+                    inputType: TextInputType.name,
+                    controller: lastNameController,
+                    prefixIcon: Icon(Icons.person_2_outlined),
+                    secureText: false,
+                    textInputAction: TextInputAction.next,
+                  ),
+                  SizedBox(height: 20),
+                  CustomTextFormField(
+                    validator: (p0) => AppValidator.validatePassword(p0!),
+                    label: 'password'.tr(),
+                    prefixIcon: Icon(Icons.lock_outline_rounded),
+                    suffixIcon: IconButton(
+                      onPressed: () => setState(() => isVisible = !isVisible),
+                      icon: Icon(
+                        isVisible ? Icons.visibility : Icons.visibility_off,
+                      ),
                     ),
+                    controller: passwordController,
+                    secureText: isVisible,
+                    textInputAction: TextInputAction.next,
                   ),
-                  controller: passwordController,
-                  secureText: isVisible,
-                ),
-                SizedBox(height: 20),
-                CustomTextFormField(
-                  validator: (p0) => AppValidator.validateConfirmPassword(
-                    p0!,
-                    passwordController.text,
-                  ),
-                  label: 'confirm_password'.tr(),
-                  prefixIcon: Icon(Icons.lock_outline_rounded),
-                  suffixIcon: IconButton(
-                    onPressed: () => setState(() => isVisible = !isVisible),
-                    icon: Icon(
-                      isVisible ? Icons.visibility : Icons.visibility_off,
+                  SizedBox(height: 20),
+                  CustomTextFormField(
+                    validator: (p0) => AppValidator.validateConfirmPassword(
+                      p0!,
+                      passwordController.text,
                     ),
+                    label: 'confirm_password'.tr(),
+                    prefixIcon: Icon(Icons.lock_outline_rounded),
+                    suffixIcon: IconButton(
+                      onPressed: () => setState(() => isVisible = !isVisible),
+                      icon: Icon(
+                        isVisible ? Icons.visibility : Icons.visibility_off,
+                      ),
+                    ),
+                    controller: confirmPasswordController,
+                    secureText: isVisible,
+                    textInputAction: TextInputAction.done,
                   ),
-                  controller: confirmPasswordController,
-                  secureText: isVisible,
-                ),
-                SizedBox(height: 40),
-                BlocConsumer<SignUpCubit, SignUpState>(
-                  listener: (context, state) {
-                    // TODO: implement listener
-                    if (state is SignUpError) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            state.message,
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "IBM",
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      );
-                    }
-                    if (state is SignUpSuccess) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'sign_up_success'.tr(),
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "IBM",
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
-                      Future.delayed(Duration(seconds: 2), () {
+                  SizedBox(height: 40),
+                  BlocConsumer<SignUpCubit, SignUpState>(
+                    listener: (context, state) {
+                      // TODO: implement listener
+                      if (state is SignUpError) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Error'),
+                              content: Text(
+                                state.message,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "IBM",
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                      if (state is SignUpSuccess) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Success'),
+                              content: Text(
+                                'sign_up_success_now_lets_go_login'.tr(),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "IBM",
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: Text('OK'),
+                                ),
+                              ],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            );
+                          },
+                        );
                         Navigator.pushReplacementNamed(
                           context,
                           LoginScreen.screenRoute,
                         );
-                      });
-                    }
-                  },
-                  builder: (context, state) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      // margin: EdgeInsets.all(15),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: Color(0xffEA3F7E),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            context.read<SignUpCubit>().signUpWithFirebase(
-                              emailController.text,
-                              passwordController.text,
-                            );
-                          // Navigator.of(context).pushAndRemoveUntil(
-                          //   MaterialPageRoute(
-                          //     builder: (context) => LoginScreen(),
-                          //   ),
-                          //   (route) => false,
-                          // );
-                          }
+                      }
+                    },
+                    builder: (context, state) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        // margin: EdgeInsets.all(15),
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Color(0xffEA3F7E),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              context.read<SignUpCubit>().signUpWithFirebase(
+                                emailController.text,
+                                passwordController.text,
+                                firstNameController.text,
+                                lastNameController.text,
+                              );
+                            }
+                          },
+                          child: state is SignUpLoading
+                              ? CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                )
+                              : Text(
+                                  'sign_in'.tr(),
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("have_account".tr()),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            LoginScreen.screenRoute,
+                          );
                         },
                         child: Text(
-                          'sign_in'.tr(),
+                          "sign_in".tr(),
                           style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
                             fontWeight: FontWeight.bold,
+                            color: Colors.blue,
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("have_account".tr()),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          LoginScreen.screenRoute,
-                        );
-                      },
-                      child: Text(
-                        "sign_in".tr(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

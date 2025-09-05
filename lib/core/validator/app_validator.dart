@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class AppValidator {
-  /// method to validate email,with regex
   static String? validateEmail(String? email) {
     if (email == null || email.isEmpty) {
       return 'email_required'.tr();
     }
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[a-zA-Z]{2,}$');
+
     if (!emailRegex.hasMatch(email)) {
       return 'invalid_email'.tr();
     }

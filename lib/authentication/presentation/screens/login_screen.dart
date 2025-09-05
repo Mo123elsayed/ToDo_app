@@ -8,6 +8,7 @@ import 'package:todo_app/authentication/presentation/widgets/custom_text_form_fi
 import 'package:todo_app/authentication/presentation/widgets/logo.dart';
 
 import 'package:todo_app/core/validator/app_validator.dart';
+import 'package:todo_app/home/presentation/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -26,7 +27,17 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isVisible = true;
 
   @override
+  /// Builds the widget with a Scaffold that contains a AppBar with a leading
+  /// TextButton to switch between languages, a body with a Form that contains
+  /// two [CustomTextFormField] to input email and password, a TextButton to
+  /// log in with Firebase, a Row with two Divider and a Text in the middle
+  /// to separate between the Firebase log in and the Google log in and the
+  /// Facebook log in, and a TextButton to log in with Google and a TextButton
+  /// to log in with Facebook, and a TextButton to navigate to the sign up
+  /// screen.
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: Scaffold(
@@ -73,6 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         secureText: false,
                         validator: (p0) =>
                             AppValidator.validateEmail(emailController.text),
+                        textInputAction: TextInputAction.next,
                       ),
                       SizedBox(height: 20),
                       CustomTextFormField(
@@ -90,56 +102,47 @@ class _LoginScreenState extends State<LoginScreen> {
                         validator: (p0) => AppValidator.validatePassword(
                           passwordController.text,
                         ),
+                        textInputAction: TextInputAction.done,
                       ),
                       SizedBox(height: 30),
                       BlocConsumer<LoginCubit, LoginState>(
                         listener: (context, state) {
                           // TODO: implement listener
                           if (state is LoginFailure) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  state.message,
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: "IBM",
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Login Failed'),
+                                  content: Text(
+                                    state.message,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: "IBM",
+                                    ),
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
                             );
                           }
                           if (state is LoginSuccess) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'sign_up_success'.tr(),
-                                  style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: "IBM",
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                duration: Duration(seconds: 2),
-                              ),
+                            Navigator.pushReplacementNamed(
+                              context,
+                              HomeScreen.screenRoute,
                             );
-                            Future.delayed(Duration(seconds: 2), () {
-                              Navigator.pushReplacementNamed(
-                                context,
-                                LoginScreen.screenRoute,
-                              );
-                            });
                           }
                         },
                         builder: (context, state) {
                           return Container(
                             width: MediaQuery.of(context).size.width,
-                            // margin: EdgeInsets.all(15),
-                            padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
                               color: Color(0xffEA3F7E),
                               borderRadius: BorderRadius.circular(10),
@@ -151,63 +154,67 @@ class _LoginScreenState extends State<LoginScreen> {
                                     emailController.text,
                                     passwordController.text,
                                   );
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                      builder: (context) => LoginScreen(),
-                                    ),
-                                    (route) => false,
+                                  Navigator.of(context).pushReplacementNamed(
+                                    HomeScreen.screenRoute,
                                   );
                                 }
                               },
-                              child: Text(
-                                'sign_in'.tr(),
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              child: state is LoginLoading
+                                  ? CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 2,
+                                    )
+                                  : Text(
+                                      'sign_in'.tr(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                             ),
                           );
                         },
                       ),
-                      SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(width: 160, child: Divider()),
-                          Container(
-                            padding: EdgeInsets.only(left: 10, right: 10),
-                            child: Text(
-                              'or'.tr(),
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 160, child: Divider()),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     SizedBox(width: 160, child: Divider()),
+                      //     Container(
+                      //       padding: EdgeInsets.only(left: 10, right: 10),
+                      //       child: Text(
+                      //         'or'.tr(),
+                      //         style: TextStyle(
+                      //           fontSize: 20,
+                      //           color: Colors.black,
+                      //           fontWeight: FontWeight.bold,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     SizedBox(
+                      //       width: screenSize.width * 0.37,
+                      //       child: Divider(),
+                      //     ),
+                      //   ],
+                      // ),
                       SizedBox(height: 10),
-                      buildOnTapContainer(
-                        context,
-                        icon: SvgPicture.asset(
-                          'assets/images/google-logo-search-new-svgrepo-com.svg',
-                        ),
-                        label: "login_with_google".tr(),
-                      ),
-                      SizedBox(height: 10),
-                      buildOnTapContainer(
-                        context,
-                        icon: SvgPicture.asset(
-                          'assets/images/facebook-icon-logo-svgrepo-com.svg',
-                          height: 25,
-                          width: 25,
-                        ),
-                        label: "login_with_facebook".tr(),
-                      ),
+                      // buildOnTapContainer(
+                      //   context,
+                      //   icon: SvgPicture.asset(
+                      //     'assets/images/google-logo-search-new-svgrepo-com.svg',
+                      //   ),
+                      //   label: "login_with_google".tr(),
+                      // ),
+                      // SizedBox(height: 10),
+                      // buildOnTapContainer(
+                      //   context,
+                      //   icon: SvgPicture.asset(
+                      //     'assets/images/facebook-icon-logo-svgrepo-com.svg',
+                      //     height: 25,
+                      //     width: 25,
+                      //   ),
+                      //   label: "login_with_facebook".tr(),
+                      // ),
                       SizedBox(height: 10),
                       GestureDetector(
                         onTap: () {},
@@ -243,6 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 20),
                 ],
               ),
             ),

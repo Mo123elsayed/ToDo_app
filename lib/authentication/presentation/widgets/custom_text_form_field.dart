@@ -18,8 +18,10 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final bool? secureText;
   final String? Function(String?) validator;
+  TextInputAction? textInputAction;
 
-  const CustomTextFormField({super.key, 
+  CustomTextFormField({
+    super.key,
     this.label,
     this.prefixIcon,
     this.suffixIcon,
@@ -27,11 +29,13 @@ class CustomTextFormField extends StatelessWidget {
     this.controller,
     this.secureText,
     required this.validator,
+    this.textInputAction,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textInputAction: textInputAction,
       validator: (value) => validator(value),
       obscureText: secureText!,
       controller: controller,

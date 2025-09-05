@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:todo_app/core/theme/app_color.dart';
 
 class Logo extends StatelessWidget {
   const Logo({super.key});
@@ -21,8 +22,9 @@ class Logo extends StatelessWidget {
                   Text(
                     'T',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.lightPink,
                       fontSize: 40,
+                      fontFamily: 'Oswald',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -30,8 +32,9 @@ class Logo extends StatelessWidget {
                   Text(
                     'O',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.lightPink,
                       fontSize: 40,
+                      fontFamily: 'Oswald',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -44,8 +47,9 @@ class Logo extends StatelessWidget {
                   Text(
                     'D',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.lightPink,
                       fontSize: 40,
+                      fontFamily: 'Oswald',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -53,8 +57,9 @@ class Logo extends StatelessWidget {
                   Text(
                     'O',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.lightPink,
                       fontSize: 40,
+                      fontFamily: 'Oswald',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -67,8 +72,9 @@ class Logo extends StatelessWidget {
                   Text(
                     'L',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.lightPink,
                       fontSize: 40,
+                      fontFamily: 'Oswald',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -76,8 +82,9 @@ class Logo extends StatelessWidget {
                   Text(
                     ' I',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.lightPink,
                       fontSize: 40,
+                      fontFamily: 'Oswald',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -97,8 +104,9 @@ class Logo extends StatelessWidget {
                   Text(
                     'S',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.lightPink,
                       fontSize: 40,
+                      fontFamily: 'Oswald',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -106,8 +114,9 @@ class Logo extends StatelessWidget {
                   Text(
                     'T',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.lightPink,
                       fontSize: 40,
+                      fontFamily: 'Oswald',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
