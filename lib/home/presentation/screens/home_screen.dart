@@ -102,11 +102,16 @@ class _HomeScreenState extends State<HomeScreen> {
             height: screenSize.height * 0.1,
           ),
           actions: [
-            IconButton(
-              icon: Icon(Icons.person_2_outlined, size: 30),
-              onPressed: () {
-                Navigator.pushNamed(context, ProfileScreen.screenRoute);
-              },
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: CircleAvatar(
+                child: IconButton(
+                  icon: Icon(Icons.person_2_rounded, color: AppColors.white),
+                  onPressed: () {
+                    Navigator.pushNamed(context, ProfileScreen.screenRoute);
+                  },
+                ),
+              ),
             ),
           ],
         ),
@@ -181,7 +186,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           SizedBox(height: 10),
                                           Text(
-                                            DateFormat('d MMMM, yyyy').format(state.todos[index].date),
+                                            DateFormat(
+                                              'd MMMM, yyyy',
+                                            ).format(state.todos[index].date),
                                             style: AppText.subtitle,
                                           ),
                                           SizedBox(height: 10),

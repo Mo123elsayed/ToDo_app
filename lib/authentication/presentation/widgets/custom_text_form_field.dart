@@ -42,14 +42,9 @@ class CustomTextFormField extends StatelessWidget {
       keyboardType: inputType,
       keyboardAppearance: Brightness.dark,
       decoration: InputDecoration(
-        label: Text("$label"),
+        hintText: "$label",
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        floatingLabelStyle: TextStyle(
-          color: Colors.black,
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-        ),
         filled: true,
         fillColor: Color.fromRGBO(179, 178, 234, 0.15),
         contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),

@@ -162,7 +162,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               actions: [
                                 TextButton(
-                                  onPressed: () => Navigator.of(context).pop(),
+                                  onPressed: () => {
+                                    Navigator.of(context).pop(),
+                                    Future.delayed(
+                                      Duration(milliseconds: 500),
+                                      () => Navigator.pushReplacementNamed(
+                                        context,
+                                        LoginScreen.screenRoute,
+                                      ),
+                                    ),
+                                  },
                                   child: Text('OK'),
                                 ),
                               ],
@@ -171,10 +180,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             );
                           },
-                        );
-                        Navigator.pushReplacementNamed(
-                          context,
-                          LoginScreen.screenRoute,
                         );
                       }
                     },

@@ -9,4 +9,9 @@ abstract class BaseAuthRepository {
   );
   Future<Either> logInWithFirebase(String email, String password);
   Future<Either> profileInfo();
+  Future<Either> changePassword({
+    String currentPassword,
+    String newPassword,
+    String confirmNewPassword,
+  });
 }

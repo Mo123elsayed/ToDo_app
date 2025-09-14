@@ -9,5 +9,6 @@ final class ProfileFailure extends ProfileState {
   ProfileFailure(this.message);
 }
 final class ProfileSuccess extends ProfileState {
-  
+  final UserModel userModel;
+  ProfileSuccess(this.userModel);
 }

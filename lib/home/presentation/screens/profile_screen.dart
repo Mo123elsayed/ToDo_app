@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/core/theme/app_color.dart';
 import 'package:todo_app/core/theme/app_text.dart';
+import 'package:flutter_switch/flutter_switch.dart';
+import 'package:todo_app/home/presentation/screens/change_password.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -30,15 +32,10 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(height: screenSize.height * 0.04),
             personalDataRow(title: 'Name', nameValue: 'Muhammed ElSayed'),
             personalDataRow(title: 'Change Email'),
-            personalDataRow(title: 'Change Password'),
-            SwitchListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 0),
-              title: Text('Change_Language'.tr()),
-              value: context.locale.languageCode == 'ar',
-              onChanged: (value) {
-                Locale newLocale = value ? Locale('ar') : Locale('en');
-                context.setLocale(newLocale);
-              },
+            GestureDetector(
+              child: personalDataRow(title: 'Change Password'),
+              onTap: () =>
+                  Navigator.of(context).pushNamed(ChangePassword.screenRoute),
             ),
             SizedBox(height: screenSize.height * 0.04),
             GestureDetector(

@@ -18,6 +18,17 @@ class TodoModel {
     required this.color,
   });
 
+  /// Converts the [TodoModel] to a map representation that can be stored in
+  /// Firestore. The map contains the following fields:
+  ///
+  /// - `id`: The ID of the todo item, which is used as the document ID in Firestore.
+  /// - `title`: The title of the todo item.
+  /// - `description`: The description of the todo item.
+  /// - `date`: The date of the todo item, represented as a Firestore
+  ///   [Timestamp] object.
+  /// - `createdAt`: The date the todo item was created, represented as a Firestore
+  ///   [Timestamp] object.
+  /// - `color`: The color of the todo item, stored as an integer value.
   Map<String, dynamic> toMap() {
     return {
       'id': id,

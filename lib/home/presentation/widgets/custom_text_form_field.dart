@@ -20,6 +20,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool? secureText;
   final String? Function(String?) validator;
   final int? maxLines;
+  
 
   const CustomTextFormField({
     super.key,

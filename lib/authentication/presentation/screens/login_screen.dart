@@ -154,9 +154,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     emailController.text,
                                     passwordController.text,
                                   );
-                                  Navigator.of(context).pushReplacementNamed(
-                                    HomeScreen.screenRoute,
-                                  );
                                 }
                               },
                               child: state is LoginLoading
