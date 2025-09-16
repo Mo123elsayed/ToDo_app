@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/core/theme/app_color.dart';
 import 'package:todo_app/core/theme/app_text.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:todo_app/home/presentation/screens/change_password.dart';
+import 'package:todo_app/authentication/presentation/screens/change_password_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -34,8 +33,9 @@ class ProfileScreen extends StatelessWidget {
             personalDataRow(title: 'Change Email'),
             GestureDetector(
               child: personalDataRow(title: 'Change Password'),
-              onTap: () =>
-                  Navigator.of(context).pushNamed(ChangePassword.screenRoute),
+              onTap: () => Navigator.of(
+                context,
+              ).pushNamed(ChangePasswordScreen.screenRoute),
             ),
             SizedBox(height: screenSize.height * 0.04),
             GestureDetector(

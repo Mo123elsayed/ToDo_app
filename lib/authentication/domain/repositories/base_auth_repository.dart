@@ -9,9 +9,10 @@ abstract class BaseAuthRepository {
   );
   Future<Either> logInWithFirebase(String email, String password);
   Future<Either> profileInfo();
-  Future<Either> changePassword({
+  Future<Either> changePassword(
     String currentPassword,
     String newPassword,
     String confirmNewPassword,
-  });
+  );
+  Future<Either> forgetPassword(String email);
 }

@@ -3,7 +3,6 @@ import 'package:dart_either/dart_either.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app/authentication/domain/repositories/base_auth_repository.dart';
-import 'package:todo_app/home/presentation/screens/change_password.dart';
 
 class AuthRepositoryImplementation extends BaseAuthRepository {
   @override
@@ -90,7 +89,6 @@ class AuthRepositoryImplementation extends BaseAuthRepository {
   }
 
   @override
-/*************  ✨ Windsurf Command ⭐  *************/
   /// Changes the user's password.
   ///
   /// The function takes three parameters, [currentPassword], [newPassword], and [confirmNewPassword].
@@ -107,31 +105,30 @@ class AuthRepositoryImplementation extends BaseAuthRepository {
   ///
   /// Otherwise, the Right value will contain the string "password_changed_successfully!".
   ///
-/*******  1fdbf80b-17a6-44d7-9942-7bc828c72fa5  *******/
-  Future<Either> changePassword({
-    String? currentPassword,
-    String? newPassword,
-    String? confirmNewPassword,
-  }) async {
+  Future<Either> changePassword(
+    String currentPassword,
+    String newPassword,
+    String confirmNewPassword,
+  ) async {
     try {
       final instance = FirebaseAuth.instance;
       final user = instance.currentUser;
-      
+
       if (newPassword != confirmNewPassword) {
         return Left("passwords_do_not_match".tr());
       }
       // reauthenticate with current password
-      final credential = EmailAuthProvider.credential(
-        email: user!.email!,
-        password: currentPassword!,
-      );
       if (user == null || user.email == null) {
         return Left("user_not_found".tr());
       }
+      final credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
       /// reauthenticate and update password in firebase 
       await user.reauthenticateWithCredential(credential);
       /// update password in firebase
-      await user.updatePassword(newPassword!);
+      await user.updatePassword(newPassword);
       return Right("password_changed_successfully!".tr());
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
@@ -140,6 +137,32 @@ class AuthRepositoryImplementation extends BaseAuthRepository {
         return Left("current_password_is_wrong".tr());
       } else if (e.code == "weak-password") {
         return Left("new_password_is_too_weak".tr());
+      }
+      // Fallback return in case no exception is caught
+      return Left('unknown_error'.tr());
+    }
+  }
+
+  @override
+  /// Sends a password reset email to the provided email address.
+  ///
+  /// If the email is valid and the user is found, it returns a Right with the value "password_reset_email_sent".
+  ///
+  /// If the user is not found, it returns a Left with the value "user_not_found".
+  ///
+  /// If the email is invalid, it returns a Left with the value "invalid_email".
+  ///
+  /// If any other error occurs, it returns a Left with the value "unknown_error".
+  Future<Either> forgetPassword(String email) async {
+    try {
+      final instance = FirebaseAuth.instance;
+      await instance.sendPasswordResetEmail(email: email);
+      return Right("password_reset_email_sent".tr());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        return Left("user_not_found".tr());
+      } else if (e.code == "invalid-email") {
+        return Left("invalid_email".tr());
       }
       // Fallback return in case no exception is caught
       return Left('unknown_error'.tr());

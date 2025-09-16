@@ -8,4 +8,20 @@ part 'change_password_state.dart';
 class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   ChangePasswordCubit() : super(ChangePasswordInitial());
   BaseAuthRepository base = AuthRepositoryImplementation();
+  Future<void> changePassword(
+    String currentPassword,
+    String newPassword,
+    String confirmNewPassword,
+  ) async {
+    emit(ChangePasswordLoading());
+    final res = await base.changePassword(
+      currentPassword,
+      newPassword,
+      confirmNewPassword,
+    );
+    res.fold(
+      ifLeft: (message) => emit(ChangePasswordFailure(message)),
+      ifRight: (message) => emit(ChangePasswordSuccess(message)),
+    );
+  }
 }

@@ -12,4 +12,7 @@ final class ChangePasswordFailure extends ChangePasswordState {
   ChangePasswordFailure(this.message);
 }
 
-final class ChangePasswordSucess extends ChangePasswordState {}
+final class ChangePasswordSuccess extends ChangePasswordState {
+  final String message;
+  ChangePasswordSuccess(this.message);
+}

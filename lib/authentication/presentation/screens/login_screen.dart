@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/authentication/presentation/controllers/login_cubit/login_cubit.dart';
+import 'package:todo_app/authentication/presentation/screens/forget_password_screen.dart';
 import 'package:todo_app/authentication/presentation/screens/sign_up_screen.dart';
 import 'package:todo_app/authentication/presentation/widgets/custom_text_form_field.dart';
 import 'package:todo_app/authentication/presentation/widgets/logo.dart';
@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: emailController,
                         secureText: false,
                         validator: (p0) =>
-                            AppValidator.validateEmail(emailController.text),
+                            AppValidator.validateEmail(p0),
                         textInputAction: TextInputAction.next,
                       ),
                       SizedBox(height: 20),
@@ -214,7 +214,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       // ),
                       SizedBox(height: 10),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            ForgetPasswordScreen.screenRoute,
+                          );
+                        },
                         child: Text(
                           "forget_password".tr(),
                           style: TextStyle(
