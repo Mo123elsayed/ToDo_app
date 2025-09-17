@@ -27,10 +27,37 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(child: SvgPicture.asset('assets/images/profile.svg')),
+            // Center(child: SvgPicture.asset('assets/images/profile.svg')),
+            Center(
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: screenSize.width * 0.15,
+                    child: Icon(Icons.person, size: screenSize.width * 0.15),
+                  ),
+                  SizedBox(height: screenSize.height * 0.02),
+                  Text(
+                    'User Name',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontFamily: AppText.fontFamily,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),  
+                  SizedBox(height: screenSize.height * 0.01),
+                  Text(
+                    'Email',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: AppText.fontFamily,
+                      color: Colors.black54,
+                    ),
+                    )
+                ],
+              ),
+            ),
+
             SizedBox(height: screenSize.height * 0.04),
-            personalDataRow(title: 'Name', nameValue: 'Muhammed ElSayed'),
-            personalDataRow(title: 'Change Email'),
             GestureDetector(
               child: personalDataRow(title: 'Change Password'),
               onTap: () => Navigator.of(

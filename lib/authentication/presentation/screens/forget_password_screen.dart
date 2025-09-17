@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:todo_app/core/theme/app_color.dart';
 import 'package:todo_app/core/validator/app_validator.dart';
