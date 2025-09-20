@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_either/dart_either.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:todo_app/authentication/data/models/user_model.dart';
 import 'package:todo_app/authentication/domain/repositories/base_auth_repository.dart';
 
 class AuthRepositoryImplementation extends BaseAuthRepository {
@@ -79,7 +80,7 @@ class AuthRepositoryImplementation extends BaseAuthRepository {
       var snapshot = await instance.collection('users').doc(userId).get();
 
       if (snapshot.exists && snapshot.data() != null) {
-        return Right(snapshot.data());
+        return Right(UserModel.fromSnapshot(snapshot));
       } else {
         return Left('No User data found.');
       }
@@ -125,8 +126,10 @@ class AuthRepositoryImplementation extends BaseAuthRepository {
         email: user.email!,
         password: currentPassword,
       );
-      /// reauthenticate and update password in firebase 
+
+      /// reauthenticate and update password in firebase
       await user.reauthenticateWithCredential(credential);
+
       /// update password in firebase
       await user.updatePassword(newPassword);
       return Right("password_changed_successfully!".tr());

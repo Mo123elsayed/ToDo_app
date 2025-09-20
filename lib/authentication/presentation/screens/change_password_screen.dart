@@ -16,9 +16,14 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController currentPasswordController =
+      TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
-  bool isVisible = true;
+  bool isVisible1 = true;
+  bool isVisible2 = true;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +52,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text("Change Password"),
+              title: Text("change_password".tr()),
               leading: IconButton(
                 onPressed: () => Navigator.pop(context),
                 icon: Icon(Icons.arrow_back_ios_new_rounded),
@@ -65,13 +70,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       validator: (p0) => AppValidator.validatePassword(p0!),
                       label: 'current_password'.tr(),
                       suffixIcon: IconButton(
-                        onPressed: () => setState(() => isVisible = !isVisible),
+                        onPressed: () =>
+                            setState(() => isVisible1 = !isVisible1),
                         icon: Icon(
-                          isVisible ? Icons.visibility : Icons.visibility_off,
+                          isVisible1 ? Icons.visibility : Icons.visibility_off,
                         ),
                       ),
-                      controller: passwordController,
-                      secureText: isVisible,
+                      controller: currentPasswordController,
+                      secureText: isVisible1,
                       textInputAction: TextInputAction.done,
                     ),
                     SizedBox(height: 20),
@@ -79,13 +85,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       validator: (p0) => AppValidator.validatePassword(p0!),
                       label: 'new_password'.tr(),
                       suffixIcon: IconButton(
-                        onPressed: () => setState(() => isVisible = !isVisible),
+                        onPressed: () =>
+                            setState(() => isVisible2 = !isVisible2),
                         icon: Icon(
-                          isVisible ? Icons.visibility : Icons.visibility_off,
+                          isVisible2 ? Icons.visibility : Icons.visibility_off,
                         ),
                       ),
-                      controller: passwordController,
-                      secureText: isVisible,
+                      controller: newPasswordController,
+                      secureText: isVisible2,
                       textInputAction: TextInputAction.done,
                     ),
                     SizedBox(height: 20),
@@ -93,13 +100,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       validator: (p0) => AppValidator.validatePassword(p0!),
                       label: 'confirm_new_password'.tr(),
                       suffixIcon: IconButton(
-                        onPressed: () => setState(() => isVisible = !isVisible),
+                        onPressed: () =>
+                            setState(() => isVisible2 = !isVisible2),
                         icon: Icon(
-                          isVisible ? Icons.visibility : Icons.visibility_off,
+                          isVisible2 ? Icons.visibility : Icons.visibility_off,
                         ),
                       ),
-                      controller: passwordController,
-                      secureText: isVisible,
+                      controller: confirmPasswordController,
+                      secureText: isVisible2,
                       textInputAction: TextInputAction.done,
                     ),
                     SizedBox(height: 20),

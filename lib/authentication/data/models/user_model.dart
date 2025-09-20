@@ -43,8 +43,8 @@ class UserModel {
     final data = doc.data()!;
     return UserModel(
       userId: data['userId'] ?? '',
-      fullName: data['fullName'] ?? '',
-      email: data['email'] ?? '',
+      fullName: data['fullName'] ?? 'User Name',
+      email: data['email'] ?? 'user@example.com',
       createdAt: (data['createdAt'] as Timestamp).toDate(),
     );
   }
