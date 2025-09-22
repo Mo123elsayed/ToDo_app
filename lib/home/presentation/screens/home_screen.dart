@@ -144,11 +144,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: screenSize.width * 0.2,
                                     height: screenSize.height * 0.2,
                                   ),
-                                  SizedBox(height: screenSize.height * 0.02),
-                                  Text(
-                                    'No_Todo_yet_please_add_some'.tr(),
-                                    style: AppText.body,
-                                  ),
                                 ],
                               ),
                             );
@@ -160,60 +155,62 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           }
                           if (state is GetTodoSuccess) {
-                            return ListView.separated(
-                              itemBuilder: (context, index) => InkWell(
-                                onTap: () {
-                                  selectedToDo(context, state, index);
-                                },
-                                splashColor: AppColors.white,
-                                radius: 10,
-                                child: Container(
-                                  height: screenSize.height * 0.2,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0,
-                                    horizontal: 5.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: state.todos[index].color,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
+                            return Expanded(
+                              child: ListView.separated(
+                                itemBuilder: (context, index) => InkWell(
+                                  onTap: () {
+                                    selectedToDo(context, state, index);
+                                  },
+                                  splashColor: AppColors.white,
+                                  radius: 10,
+                                  child: Container(
+                                    height: screenSize.height * 0.2,
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0,
+                                      vertical: 10.0,
+                                      horizontal: 5.0,
                                     ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          state.todos[index].title,
-                                          style: AppText.header,
-                                        ),
-                                        SizedBox(height: 11),
-                                        Expanded(
-                                          child: Text(
-                                            state.todos[index].description,
-                                            style: AppText.body,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
+                                    decoration: BoxDecoration(
+                                      color: state.todos[index].color,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            state.todos[index].title,
+                                            style: AppText.header,
                                           ),
-                                        ),
-                                        SizedBox(height: 10),
-                                        Text(
-                                          DateFormat(
-                                            'd MMMM, yyyy',
-                                          ).format(state.todos[index].date),
-                                          style: AppText.subtitle,
-                                        ),
-                                        SizedBox(height: 10),
-                                      ],
+                                          SizedBox(height: 11),
+                                          Expanded(
+                                            child: Text(
+                                              state.todos[index].description,
+                                              style: AppText.body,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            DateFormat(
+                                              'd MMMM, yyyy',
+                                            ).format(state.todos[index].date),
+                                            style: AppText.subtitle,
+                                          ),
+                                          SizedBox(height: 10),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
+                                separatorBuilder: (context, index) =>
+                                    SizedBox(height: 10),
+                                itemCount: state.todos.length,
                               ),
-                              separatorBuilder: (context, index) =>
-                                  SizedBox(height: 10),
-                              itemCount: state.todos.length,
                             );
                           }
                           return Center();
@@ -223,8 +220,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Positioned(
-                  bottom: 10,
-                  right: 10,
+                  bottom: 20,
+                  right: 15,
                   child: FloatingActionButton(
                     onPressed: () {
                       showModalBottomSheet(

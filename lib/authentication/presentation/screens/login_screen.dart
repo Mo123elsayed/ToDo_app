@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/authentication/presentation/controllers/login_cubit/login_cubit.dart';
+import 'package:todo_app/authentication/presentation/controllers/profile_cubit/profile_cubit.dart';
 import 'package:todo_app/authentication/presentation/screens/forget_password_screen.dart';
 import 'package:todo_app/authentication/presentation/screens/sign_up_screen.dart';
 import 'package:todo_app/authentication/presentation/widgets/custom_text_form_field.dart';
@@ -82,8 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         inputType: TextInputType.emailAddress,
                         controller: emailController,
                         secureText: false,
-                        validator: (p0) =>
-                            AppValidator.validateEmail(p0),
+                        validator: (p0) => AppValidator.validateEmail(p0),
                         textInputAction: TextInputAction.next,
                       ),
                       SizedBox(height: 20),
@@ -138,6 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               HomeScreen.screenRoute,
                             );
+                            context.read<ProfileCubit>().getProfileInfo();
                           }
                         },
                         builder: (context, state) {

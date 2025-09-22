@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/authentication/presentation/controllers/profile_cubit/profile_cubit.dart';
+import 'package:todo_app/authentication/presentation/screens/login_screen.dart';
 import 'package:todo_app/core/theme/app_color.dart';
 import 'package:todo_app/core/theme/app_text.dart';
 import 'package:todo_app/authentication/presentation/screens/change_password_screen.dart';
@@ -34,11 +36,11 @@ class ProfileScreen extends StatelessWidget {
                 child: BlocConsumer<ProfileCubit, ProfileState>(
                   listener: (context, state) {
                     // TODO: implement listener
-                    if (state is ProfileFailure) {
-                      Center(child: Text(state.message));
-                    }
                   },
                   builder: (context, state) {
+                    if (state is ProfileFailure) {
+                      return Center(child: Text(state.message));
+                    }
                     if (state is ProfileSuccess) {
                       return Column(
                         children: [
@@ -70,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       );
                     }
-                    return SizedBox.shrink();
+                    return Container();
                   },
                 ),
               ),
@@ -100,7 +102,9 @@ class ProfileScreen extends StatelessWidget {
               ),
               SizedBox(height: screenSize.height * 0.04),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  _logOut(context);
+                },
                 child: Text(
                   'logout'.tr(),
                   style: TextStyle(
@@ -150,6 +154,16 @@ class ProfileScreen extends StatelessWidget {
           onPressed: onTap,
         ),
       ],
+    );
+  }
+
+  Future<void> _logOut(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    // Navigate to the login screen
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      LoginScreen.screenRoute,
+      (route) => false, // ده معناه امسح كل اللي قبل
     );
   }
 }

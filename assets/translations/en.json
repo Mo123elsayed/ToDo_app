@@ -1,6 +1,7 @@
 {
     "language": "ar (EG)",
     "email": "Email",
+    "loading": "Loading...",
     "first_name": "First Name",
     "last_name": "Last Name",
     "password": "Password",
@@ -13,6 +14,7 @@
     "new_password_is_too_weak":"New Password is too weak",
     "passwords_do_not_match":"Passwords do not match",
     "Enter_your_email_to_rest_your_password":"Enter your email to reset your password",
+    "password_reset_email_sent":"Password reset email sent",
     "reset_password": "Reset Password",
     "send_reset_link": "Send Reset Link",
     "sign_in": "Sign in",

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
   /// A custom text form field widget.
   ///
-  /// The widget takes in a [title] as a string,
   /// [label] is the text displayed as the label of the form field.
   /// [prefixIcon] is the widget displayed at the start of the form field.
   /// [suffixIcon] is the widget displayed at the end of the form field.
@@ -12,7 +11,6 @@ class CustomTextFormField extends StatelessWidget {
   /// [secureText] determines whether the text in the form field is obscured.
   /// [validator] is a function that validates the text entered in the form field.
   /// [textInputAction] specifies the action button on the keyboard.
-  final String? title ;
   final String? label;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -24,7 +22,6 @@ class CustomTextFormField extends StatelessWidget {
 
   CustomTextFormField({
     super.key,
-    this.title,
     this.label,
     this.prefixIcon,
     this.suffixIcon,
@@ -45,7 +42,6 @@ class CustomTextFormField extends StatelessWidget {
       keyboardType: inputType,
       keyboardAppearance: Brightness.dark,
       decoration: InputDecoration(
-        labelText: title,
         hintText: "$label",
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,

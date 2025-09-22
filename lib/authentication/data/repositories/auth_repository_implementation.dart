@@ -78,7 +78,6 @@ class AuthRepositoryImplementation extends BaseAuthRepository {
       var instance = FirebaseFirestore.instance;
       var userId = FirebaseAuth.instance.currentUser!.uid;
       var snapshot = await instance.collection('users').doc(userId).get();
-
       if (snapshot.exists && snapshot.data() != null) {
         return Right(UserModel.fromSnapshot(snapshot));
       } else {

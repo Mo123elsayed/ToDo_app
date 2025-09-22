@@ -63,7 +63,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               child: Form(
                 key: formKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 20),
                     CustomTextFormField(
@@ -78,7 +78,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                       controller: currentPasswordController,
                       secureText: isVisible1,
-                      textInputAction: TextInputAction.done,
+                      textInputAction: TextInputAction.next,
                     ),
                     SizedBox(height: 20),
                     CustomTextFormField(
@@ -93,7 +93,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                       controller: newPasswordController,
                       secureText: isVisible2,
-                      textInputAction: TextInputAction.done,
+                      textInputAction: TextInputAction.next,
                     ),
                     SizedBox(height: 20),
                     CustomTextFormField(
@@ -120,9 +120,23 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          if (formKey.currentState!.validate()) {}
+                          if (formKey.currentState!.validate()) {
+                            context.read<ChangePasswordCubit>().changePassword(
+                              currentPasswordController.text,
+                              newPasswordController.text,
+                              confirmPasswordController.text,
+                            );
+                          }
                         },
-                        child: Text('change_password'.tr()),
+                        child: Text(
+                          'change_password'.tr(),
+                          style: TextStyle(
+                            color: AppColors.black,
+                            fontSize: 16,
+                            fontFamily: 'IBM',
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ),
                   ],

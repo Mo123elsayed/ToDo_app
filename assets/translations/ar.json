@@ -1,6 +1,7 @@
 {
     "language": "EN (US)",
     "email": "البريد الإلكتروني",
+    "loading": "جار التحميل...",
     "first_name": "الاسم الأول",
     "last_name": "اسم العائلة",
     "password": "كلمة المرور",
@@ -12,6 +13,7 @@
     "password_changed_successfully!":"تم تغيير كلمة المرور بنجاح!",
     "new_password_is_too_weak":"كلمة المرور الجديدة ضعيفة جدا",
     "passwords_do_not_match":"كلمتا المرور غير متطابقتين",
+    "password_reset_email_sent":"تم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور",
     "Enter_your_email_to_rest_your_password":"أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك",
     "reset_password": "إعادة تعيين كلمة المرور",
     "send_reset_link": "إرسال رابط إعادة التعيين",

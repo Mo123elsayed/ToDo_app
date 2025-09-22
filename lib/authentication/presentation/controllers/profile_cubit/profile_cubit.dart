@@ -9,10 +9,10 @@ part 'profile_state.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileInitial());
 
-  // Replace 'HomeRepositoryImplementation' with the actual concrete class name that implements BaseHomeRepository
   BaseAuthRepository base = AuthRepositoryImplementation();
 
   Future<void> getProfileInfo() async {
+    emit(ProfileLoading());
     var res = await base.profileInfo();
     res.fold(
       ifLeft: (value) => emit(ProfileFailure(value)),
