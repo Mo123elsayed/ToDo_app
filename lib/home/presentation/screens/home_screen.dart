@@ -280,27 +280,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           SizedBox(height: 10),
                                           CustomTextFormField(
+                                            readOnly: true,
+                                            onTap: () => _selectDate(context),
                                             suffixIcon: IconButton(
-                                              onPressed: () async {
-                                                final pickedDate =
-                                                    await showDatePicker(
-                                                      context: context,
-                                                      initialDate:
-                                                          DateTime.now(),
-                                                      firstDate: DateTime(1000),
-                                                      lastDate: DateTime(2100),
-                                                    );
-                                                if (pickedDate != null) {
-                                                  final formattedDate =
-                                                      DateFormat(
-                                                        'd MMMM, yyyy',
-                                                      ).format(pickedDate);
-                                                  setState(() {
-                                                    selectedDate = pickedDate;
-                                                    dateController.text =
-                                                        formattedDate;
-                                                  });
-                                                }
+                                              onPressed: () {
+                                                _selectDate(context);
                                               },
                                               icon: Icon(
                                                 Icons.calendar_today,
@@ -500,5 +484,21 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _selectDate(BuildContext ctx) async {
+    final pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1000),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null) {
+      final formattedDate = DateFormat('d MMMM, yyyy').format(pickedDate);
+      setState(() {
+        selectedDate = pickedDate;
+        dateController.text = formattedDate;
+      });
+    }
   }
 }

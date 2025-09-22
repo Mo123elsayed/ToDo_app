@@ -19,7 +19,9 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final bool? secureText;
   final String? Function(String?) validator;
+  final Function()? onTap;
   final int? maxLines;
+  final bool? readOnly;
   
 
   const CustomTextFormField({
@@ -32,11 +34,15 @@ class CustomTextFormField extends StatelessWidget {
     this.secureText,
     this.maxLines,
     required this.validator,
+    this.onTap,
+    this.readOnly,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: onTap,
+      readOnly: readOnly! ,
       style: TextStyle(color: AppColors.white, fontFamily: "IBM"),
       maxLines: maxLines ?? 1,
       validator: (value) => validator(value),
