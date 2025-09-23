@@ -6,13 +6,13 @@ class AppText {
   static TextStyle get header => TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w600,
-    color: Colors.black,
+    color: Colors.white,
     fontFamily: fontFamily,
   );
 
   static TextStyle get subtitle => TextStyle(
     fontSize: 18,
-    color: Colors.black,
+    color: Colors.white54,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w600,
   );
@@ -20,7 +20,7 @@ class AppText {
   static TextStyle get body => TextStyle(
     fontSize: 19,
     fontWeight: FontWeight.w400,
-    color: Colors.black87,
+    color: Colors.white,
     fontFamily: fontFamily,
   );
 }

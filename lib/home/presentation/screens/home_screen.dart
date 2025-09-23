@@ -157,66 +157,86 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (state is GetTodoSuccess) {
                             return Expanded(
                               child: ListView.separated(
-                                itemBuilder: (context, index) => InkWell(
-                                  onTap: () {
-                                    selectedToDo(context, state, index);
-                                  },
-                                  splashColor: AppColors.white,
-                                  radius: 10,
-                                  child: Container(
-                                    height: screenSize.height * 0.2,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0,
-                                      horizontal: 5.0,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: state.todos[index].color,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Padding(
+                                itemBuilder: (context, index) {
+                                  final createdAtDate =
+                                      (state.todos[index].createdAt);
+                                  final nowDate = DateTime.now();
+
+                                  final createdDay = DateTime(
+                                    createdAtDate.year,
+                                    createdAtDate.month,
+                                    createdAtDate.day,
+                                  );
+                                  final today = DateTime(
+                                    nowDate.year,
+                                    nowDate.month,
+                                    nowDate.day,
+                                  );
+                                  final differenceInDays = today
+                                      .difference(createdDay)
+                                      .inDays;
+                                  return InkWell(
+                                    onTap: () {
+                                      selectedToDo(context, state, index);
+                                    },
+                                    splashColor: AppColors.white,
+                                    radius: 10,
+                                    child: Container(
+                                      height: screenSize.height * 0.2,
                                       padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0,
+                                        vertical: 10.0,
+                                        horizontal: 5.0,
                                       ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                state.todos[index].title,
-                                                style: AppText.header,
-                                              ),
-                                              Spacer(),
-                                              Icon(
-                                                Icons.access_time_rounded,
-                                                color: AppColors.black,
-                                                size: 20,
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(height: 11),
-                                          Expanded(
-                                            child: Text(
-                                              state.todos[index].description,
-                                              style: AppText.body,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
+                                      decoration: BoxDecoration(
+                                        color: state.todos[index].color,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0,
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  state.todos[index].title,
+                                                  style: AppText.header,
+                                                ),
+                                                Spacer(),
+                                                Icon(
+                                                  Icons.access_time_rounded,
+                                                  color: differenceInDays == 0
+                                                      ? AppColors.white
+                                                      : Colors.transparent,
+                                                  size: 25,
+                                                  // weight: 20,
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            DateFormat(
-                                              'd MMMM, yyyy',
-                                            ).format(state.todos[index].date),
-                                            style: AppText.subtitle,
-                                          ),
-                                          SizedBox(height: 10),
-                                        ],
+                                            SizedBox(height: 11),
+                                            Expanded(
+                                              child: Text(
+                                                state.todos[index].description,
+                                                style: AppText.body,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Text(
+                                              "Created at ${DateFormat('d MMMM, yyyy').format(state.todos[index].date)}",
+                                              style: AppText.subtitle,
+                                            ),
+                                            SizedBox(height: 10),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                },
                                 separatorBuilder: (context, index) =>
                                     SizedBox(height: 10),
                                 itemCount: state.todos.length,

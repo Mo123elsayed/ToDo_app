@@ -67,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
               key: formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(
                     children: [
