@@ -19,8 +19,8 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final bool? secureText;
   final String? Function(String?) validator;
-  final Function()? onTap;
   final int? maxLines;
+  final Function()? onTap;
   final bool? readOnly;
   
 
@@ -42,11 +42,11 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       onTap: onTap,
-      readOnly: readOnly! ,
+      readOnly: readOnly ?? false,
       style: TextStyle(color: AppColors.white, fontFamily: "IBM"),
       maxLines: maxLines ?? 1,
       validator: (value) => validator(value),
-      obscureText: secureText!,
+      obscureText: secureText ?? false,
       controller: controller,
       keyboardType: inputType,
       textInputAction: TextInputAction.next,

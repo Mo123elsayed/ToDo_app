@@ -121,22 +121,11 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
 
                   /// The deadline field is a date picker.
                   CustomTextFormField(
+                    readOnly: true,
+                    onTap: () => _selectDate(context),
                     suffixIcon: IconButton(
                       onPressed: () {
-                        showDatePicker(
-                          context: context,
-                          initialDate: widget.todo['date'],
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(2100),
-                        ).then((value) {
-                          if (value != null) {
-                            setState(() {
-                              dateController.text = DateFormat(
-                                'd MMMM, yyyy',
-                              ).format(value);
-                            });
-                          }
-                        });
+                        _selectDate(context);
                       },
                       icon: Icon(Icons.calendar_today, color: AppColors.white),
                     ),
@@ -193,5 +182,25 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
         },
       ),
     );
+  }
+
+  /// Shows a date picker dialog to select a date and updates the state with the selected date.
+  ///
+  /// The date picker dialog is initialized with the current date and allows dates from the year 1000 to the year 2100 to be selected.
+  ///
+  /// If a date is selected, the state is updated with the selected date and the date controller is updated with the selected date in the format 'd MMMM, yyyy'.
+  Future<void> _selectDate(BuildContext ctx) async {
+    await showDatePicker(
+      context: context,
+      initialDate: widget.todo['date'],
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          dateController.text = DateFormat('d MMMM, yyyy').format(value);
+        });
+      }
+    });
   }
 }

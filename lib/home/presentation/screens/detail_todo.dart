@@ -55,7 +55,6 @@ class _DetailTodoState extends State<DetailTodo> {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     final todoDate = todo['date'];
-    print("todoDate.runtimeType:================> ${todoDate.runtimeType}");
     final formattedDate = DateFormat('d MMMM, yyyy').format(todoDate);
 
     return BlocConsumer<DeleteTodoCubit, DeleteTodoState>(
@@ -95,12 +94,15 @@ class _DetailTodoState extends State<DetailTodo> {
           appBar: AppBar(
             backgroundColor: todo['color'],
             leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios_new_rounded),
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: AppColors.black,
+              ),
               onPressed: () => Navigator.of(context).pop(),
             ),
             actions: [
               IconButton(
-                icon: Icon(Icons.edit),
+                icon: Icon(Icons.edit_outlined, color: AppColors.black),
                 onPressed: () async {
                   var res = await showModalBottomSheet(
                     isScrollControlled: true,
@@ -117,7 +119,7 @@ class _DetailTodoState extends State<DetailTodo> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.delete_outline_rounded),
+                icon: Icon(Icons.delete_rounded, color: AppColors.black),
                 onPressed: () {
                   confirmDeleteTodo(todo['id']);
                   // Show a confirmation dialog before deleting
@@ -138,9 +140,7 @@ class _DetailTodoState extends State<DetailTodo> {
                   Expanded(
                     child: Text('${todo['description']}', style: AppText.body),
                   ),
-                  Center(
-                    child: Text(formattedDate, style: AppText.subtitle),
-                  ),
+                  Center(child: Text(formattedDate, style: AppText.subtitle)),
                   SizedBox(height: 10),
                 ],
               ),

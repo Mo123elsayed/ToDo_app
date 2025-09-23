@@ -181,9 +181,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            state.todos[index].title,
-                                            style: AppText.header,
+                                          Row(
+                                            children: [
+                                              Text(
+                                                state.todos[index].title,
+                                                style: AppText.header,
+                                              ),
+                                              Spacer(),
+                                              Icon(
+                                                Icons.access_time_rounded,
+                                                color: AppColors.black,
+                                                size: 20,
+                                              ),
+                                            ],
                                           ),
                                           SizedBox(height: 11),
                                           Expanded(
@@ -486,6 +496,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Shows a date picker dialog to select a date and updates the state with the selected date.
+  ///
+  /// The date picker dialog is initialized with the current date and allows dates from the year 1000 to the year 2100 to be selected.
+  ///
+  /// If a date is selected, the state is updated with the selected date and the date controller is updated with the selected date in the format 'd MMMM, yyyy'.
   Future<void> _selectDate(BuildContext ctx) async {
     final pickedDate = await showDatePicker(
       context: context,
